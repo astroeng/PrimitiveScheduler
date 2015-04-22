@@ -16,12 +16,14 @@
 #define ADD_SUCCESS 1
 #define ADD_FAIL    0
 
+typedef void (*func_ptr)();
+
 class PrimitiveScheduler
 {
 public:
   PrimitiveScheduler();
 
-  char addTask(void (*new_func)(), unsigned long interval);
+  char addTask(func_ptr new_func, unsigned long interval);
   unsigned long getTime();
   void run();
   
@@ -30,7 +32,7 @@ private:
   unsigned long current_time;
   unsigned long taskInterval[MAX_TASK];
   unsigned long taskLastExecution[MAX_TASK];
-  int tasks[MAX_TASK];
+  func_ptr tasks[MAX_TASK];
   
   unsigned char emptyPosition;
 };

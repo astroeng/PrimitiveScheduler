@@ -18,11 +18,11 @@ PrimitiveScheduler::PrimitiveScheduler()
   current_time = millis();
 }
 
-char PrimitiveScheduler::addTask(void (*new_func)(), unsigned long interval)
+char PrimitiveScheduler::addTask(func_ptr new_func, unsigned long interval)
 {
   if (emptyPosition < MAX_TASK)
   {
-    tasks[emptyPosition] = (int)new_func;
+    tasks[emptyPosition] = new_func;
     taskInterval[emptyPosition] = interval;
   
     emptyPosition++;
