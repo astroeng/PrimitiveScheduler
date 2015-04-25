@@ -44,6 +44,7 @@ public:
   unsigned long getTime();
   unsigned long getIntervalTime();
   unsigned long getTaskExecutionTime(char i);
+  double        getTaskExecutionRate(char i);
   unsigned long getTaskSkipped(char i);
   unsigned char getTaskCount();
 
@@ -56,6 +57,7 @@ private:
   unsigned long interval_time;
   unsigned long taskInterval[MAX_TASK];
   unsigned long taskExecutionTime[MAX_TASK];
+  double        taskExecutionRate[MAX_TASK];
   unsigned long taskLastExecution[MAX_TASK];
   unsigned long taskSkipped[MAX_TASK];
   

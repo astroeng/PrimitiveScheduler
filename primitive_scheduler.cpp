@@ -32,6 +32,7 @@ char PrimitiveScheduler::addTask(func_ptr new_func, unsigned long interval)
     taskInterval[emptyPosition]      = interval;
     taskExecutionTime[emptyPosition] = 0;
     taskSkipped[emptyPosition]       = 0;
+    taskExecutionRate[emptyPosition] = 0.0;
   
     emptyPosition++;
     
@@ -61,6 +62,13 @@ unsigned long PrimitiveScheduler::getIntervalTime()
 unsigned long PrimitiveScheduler::getTaskExecutionTime(char i)
 {
   return taskExecutionTime[i];
+}
+
+/* This will return the execution rate of a particular task.
+ */
+double PrimitiveScheduler::getTaskExecutionRate(char i)
+{
+  return taskExecutionRate[i];
 }
 
 /* This will return the status of a task. If a task is skipped this
@@ -115,13 +123,17 @@ void PrimitiveScheduler::run()
      * this will catch that and not run the "task".
      */
     
-    if ((taskLastExecution[i] + taskInterval[i]) <= current_time &&
+    start_time = millis();
+    
+    if ((taskLastExecution[i] + taskInterval[i]) <= start_time &&
         (taskExecutionTime[i] < taskInterval[i]))
     {
       
-      start_time = millis();
       ((void (*)()) tasks[i])();
-      taskLastExecution[i] = current_time;
+      
+      taskExecutionRate[i] = (taskExecutionRate[i] * 0.8) + 
+                             ((double)(start_time - taskLastExecution[i]) * 0.2);
+      taskLastExecution[i] = start_time;
       taskExecutionTime[i] = millis() - start_time;
       
     }
