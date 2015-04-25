@@ -15,16 +15,16 @@ To use this library the user must create a schedule object and then add tasks to
 
 In the main body of the sketch:  
 
-``#include <primitive_scheduler.h> /* Include the schedule library``  
-``PrimitiveScheduler schedule; /* Declare a schedule.``  
+```#include <primitive_scheduler.h> /* Include the schedule library```  
+```PrimitiveScheduler schedule; /* Declare a schedule.```  
 
 In the setup function of the sketch:  
 
-``schedule.addTask(do_something, 125) /* Add ‘do_something’ to the schedule and run every 125ms’’  
+```schedule.addTask(do_something, 125) /* Add ‘do_something’ to the schedule and run every 125ms */```  
 
 In the loop function of the sketch:  
 
-``schedule.run() /* run the schedule’’  
+```schedule.run() /* run the schedule */```  
 
 At this point the scheduler will start collecting stats on each of the tasks that execute as well as statistics about the scheduler itself.
 
