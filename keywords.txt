@@ -1,0 +1,31 @@
+#######################################
+# Syntax Coloring Map for PrimitiveScheduler
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+PrimitiveScheduler	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+addTask	             KEYWORD2
+getTime	             KEYWORD2
+getIntervalTime	     KEYWORD2
+getTaskExecutionTime KEYWORD2
+getTaskSkipped       KEYWORD2
+getTaskCount         KEYWORD2
+resetTask            KEYWORD2
+run                  KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+ADD_SUCCESS LITERAL1
+ADD_FAIL    LITERAL1
+MAX_TASK    LITERAL1
+

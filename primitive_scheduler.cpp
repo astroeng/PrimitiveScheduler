@@ -82,7 +82,7 @@ unsigned char PrimitiveScheduler::getTaskCount()
 /* This will reset a task, effectivly adding it back into the 
  * schedule.
  */
-void resetTask(char i, int additional_time)
+void PrimitiveScheduler::resetTask(char i, int additional_time)
 {
   taskInterval[i] += additional_time;
   taskSkipped[i] = 0;
