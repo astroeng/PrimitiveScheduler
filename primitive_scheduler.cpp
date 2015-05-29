@@ -14,9 +14,34 @@
 
 PrimitiveScheduler::PrimitiveScheduler()
 {
+  PrimitiveScheduler(DEFAULT_TASK);
+
+}
+PrimitiveScheduler::PrimitiveScheduler(unsigned char num_tasks)
+{
+  task_count = num_tasks;
+  
+  taskInterval      = new unsigned long[task_count];
+  taskExecutionTime = new unsigned long[task_count];
+  taskExecutionRate = new double[task_count];
+  taskLastExecution = new unsigned long[task_count];
+  taskSkipped       = new unsigned long[task_count];
+  
+  tasks = new func_ptr[task_count];
+  
   emptyPosition = 0;
   current_time = millis();
   interval_time = 0;
+}
+
+PrimitiveScheduler::~PrimitiveScheduler()
+{
+  delete[] taskInterval;
+  delete[] taskExecutionTime;
+  delete[] taskExecutionRate;
+  delete[] taskLastExecution;
+  delete[] taskSkipped;
+  delete[] tasks;
 }
 
 /* This function will add a task to the schedule. A function name should be
@@ -26,7 +51,7 @@ PrimitiveScheduler::PrimitiveScheduler()
 char PrimitiveScheduler::addTask(func_ptr new_func, unsigned long interval)
 {
   
-  if (emptyPosition < MAX_TASK)
+  if (emptyPosition < task_count)
   {
     tasks[emptyPosition]             = new_func;
     taskInterval[emptyPosition]      = interval;

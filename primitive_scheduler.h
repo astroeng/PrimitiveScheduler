@@ -28,7 +28,7 @@
 #ifndef PRIMITIVE_SCHEDULER_H
 #define PRIMITIVE_SCHEDULER_H
 
-#define MAX_TASK 6
+#define DEFAULT_TASK 6
 
 #define ADD_SUCCESS 1
 #define ADD_FAIL    0
@@ -39,6 +39,8 @@ class PrimitiveScheduler
 {
 public:
   PrimitiveScheduler();
+  PrimitiveScheduler(unsigned char num_tasks);
+  ~PrimitiveScheduler();
 
   char addTask(func_ptr new_func, unsigned long interval);
   unsigned long getTime();
@@ -55,13 +57,14 @@ private:
 
   unsigned long current_time;
   unsigned long interval_time;
-  unsigned long taskInterval[MAX_TASK];
-  unsigned long taskExecutionTime[MAX_TASK];
-  double        taskExecutionRate[MAX_TASK];
-  unsigned long taskLastExecution[MAX_TASK];
-  unsigned long taskSkipped[MAX_TASK];
+  unsigned long* taskInterval;
+  unsigned long* taskExecutionTime;
+  double       * taskExecutionRate;
+  unsigned long* taskLastExecution;
+  unsigned long* taskSkipped;
   
-  func_ptr tasks[MAX_TASK];
+  unsigned char task_count;
+  func_ptr* tasks;
   
   unsigned char emptyPosition;
 
