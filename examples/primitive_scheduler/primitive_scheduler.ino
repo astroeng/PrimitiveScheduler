@@ -1,7 +1,7 @@
 
 #include <primitive_scheduler.h>
 
-PrimitiveScheduler example_schedule;
+PrimitiveScheduler example_schedule(6);
 
 double division;
 double multiplication;
@@ -12,10 +12,14 @@ void setup()
 {
   Serial.begin(9600);
   
+  delay(2000);
+
   example_schedule.addTask(do_something,500);
   example_schedule.addTask(wait_89,120);
   example_schedule.addTask(wait_32,750);
   example_schedule.addTask(print_stuff,5000);
+
+
 
 }
 

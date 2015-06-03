@@ -50,11 +50,12 @@ PrimitiveScheduler::~PrimitiveScheduler()
  */
 char PrimitiveScheduler::addTask(func_ptr new_func, unsigned long interval)
 {
-  
+
   if (emptyPosition < task_count)
   {
     tasks[emptyPosition]             = new_func;
     taskInterval[emptyPosition]      = interval;
+    taskLastExecution[emptyPosition] = 0;
     taskExecutionTime[emptyPosition] = 0;
     taskSkipped[emptyPosition]       = 0;
     taskExecutionRate[emptyPosition] = 0.0;
@@ -149,11 +150,11 @@ void PrimitiveScheduler::run()
      */
     
     start_time = millis();
-    
+
     if ((taskLastExecution[i] + taskInterval[i]) <= start_time &&
         (taskExecutionTime[i] < taskInterval[i]))
     {
-      
+
       ((void (*)()) tasks[i])();
       
       taskExecutionRate[i] = (taskExecutionRate[i] * 0.8) + 
