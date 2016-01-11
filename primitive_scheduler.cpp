@@ -23,7 +23,6 @@ PrimitiveScheduler::PrimitiveScheduler(unsigned char num_tasks)
   
   taskInterval      = new unsigned long[task_count];
   taskExecutionTime = new unsigned long[task_count];
-  taskExecutionRate = new double[task_count];
   taskLastExecution = new unsigned long[task_count];
   taskSkipped       = new unsigned long[task_count];
   
@@ -38,7 +37,6 @@ PrimitiveScheduler::~PrimitiveScheduler()
 {
   delete[] taskInterval;
   delete[] taskExecutionTime;
-  delete[] taskExecutionRate;
   delete[] taskLastExecution;
   delete[] taskSkipped;
   delete[] tasks;
@@ -58,7 +56,6 @@ char PrimitiveScheduler::addTask(func_ptr new_func, unsigned long interval)
     taskLastExecution[emptyPosition] = 0;
     taskExecutionTime[emptyPosition] = 0;
     taskSkipped[emptyPosition]       = 0;
-    taskExecutionRate[emptyPosition] = 0.0;
   
     emptyPosition++;
     
@@ -90,13 +87,6 @@ unsigned long PrimitiveScheduler::getTaskExecutionTime(char i)
   return taskExecutionTime[i];
 }
 
-/* This will return the execution rate of a particular task.
- */
-double PrimitiveScheduler::getTaskExecutionRate(char i)
-{
-  return taskExecutionRate[i];
-}
-
 /* This will return the status of a task. If a task is skipped this
  * will be greater than 0, and set to the time the task ran over in
  * milliseconds. Once skipped a task will not be run again until reset.
@@ -113,7 +103,7 @@ unsigned char PrimitiveScheduler::getTaskCount()
   return emptyPosition;
 }
 
-/* This will reset a task, effectivly adding it back into the 
+/* This will reset a task, effectively adding it back into the 
  * schedule.
  */
 void PrimitiveScheduler::resetTask(char i, int additional_time)
@@ -138,7 +128,7 @@ void PrimitiveScheduler::run()
   interval_time = start_time - current_time;
   current_time = start_time;
   
-  /* Run throught the array of "tasks" and run them. */
+  /* Run through the array of "tasks" and run them. */
   
   for (i = 0; i < emptyPosition; i++)
   {
@@ -157,8 +147,6 @@ void PrimitiveScheduler::run()
 
       ((void (*)()) tasks[i])();
       
-      taskExecutionRate[i] = (taskExecutionRate[i] * 0.8) + 
-                             ((double)(start_time - taskLastExecution[i]) * 0.2);
       taskLastExecution[i] = start_time;
       taskExecutionTime[i] = millis() - start_time;
       
@@ -170,9 +158,9 @@ void PrimitiveScheduler::run()
     
     else if (taskExecutionTime[i] >= taskInterval[i])
     {
-      
+
       taskSkipped[i] = taskExecutionTime[i] - taskInterval[i];
-    
+
     }
     
   }

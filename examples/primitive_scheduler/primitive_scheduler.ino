@@ -19,8 +19,6 @@ void setup()
   example_schedule.addTask(wait_32,750);
   example_schedule.addTask(print_stuff,5000);
 
-
-
 }
 
 
@@ -69,10 +67,8 @@ void print_stuff(void)
     Serial.print("Task # ");
     Serial.print(i);
     Serial.print(" eTime : ");
-    Serial.print(example_schedule.getTaskExecutionTime(i));
-    Serial.print(" eRate : ");
-    Serial.println(example_schedule.getTaskExecutionRate(i));
-  
+    Serial.println(example_schedule.getTaskExecutionTime(i));
+
   }
   
 }

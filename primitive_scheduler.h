@@ -11,7 +11,7 @@
 
 /* This is a primitive scheduler for the Arduino platform. It is very
  * basic only allowing a few tasks to be run on a given periodicity. The
- * period is not guarateed since the shortest interval is dictated by 
+ * period is not guaranteed since the shortest interval is dictated by 
  * the execution time of all of the schedule tasks. If the first task
  * is supposed to run every 10ms but the second task takes 30ms to 
  * perform it's job then the first task will be delayed by 30ms. However,
@@ -46,7 +46,6 @@ public:
   unsigned long getTime();
   unsigned long getIntervalTime();
   unsigned long getTaskExecutionTime(char i);
-  double        getTaskExecutionRate(char i);
   unsigned long getTaskSkipped(char i);
   unsigned char getTaskCount();
 
@@ -59,7 +58,6 @@ private:
   unsigned long interval_time;
   unsigned long* taskInterval;
   unsigned long* taskExecutionTime;
-  double       * taskExecutionRate;
   unsigned long* taskLastExecution;
   unsigned long* taskSkipped;
   
