@@ -148,6 +148,14 @@ void PrimitiveScheduler::run()
       ((void (*)()) tasks[i])();
       
       taskLastExecution[i] = start_time;
+	  
+	  /* This delay is here as a debugging effort to try and figure
+	   * out why this sometimes reports 65535. The minimum value
+	   * should now always be 1.
+	   */
+	  /* TODO: figure this out and remove the delay. */
+	  delay(1);
+	  
       taskExecutionTime[i] = millis() - start_time;
       
     }
