@@ -11,13 +11,13 @@
 
 /* This is a primitive scheduler for the Arduino platform. It is very
  * basic only allowing a few tasks to be run on a given periodicity. The
- * period is not guaranteed since the shortest interval is dictated by 
+ * period is not guaranteed since the shortest interval is dictated by
  * the execution time of all of the schedule tasks. If the first task
- * is supposed to run every 10ms but the second task takes 30ms to 
+ * is supposed to run every 10ms but the second task takes 30ms to
  * perform it's job then the first task will be delayed by 30ms. However,
  * if a task is setup to run every 15ms and really takes 20ms to execute.
  * Then this scheduler will ignore the task until it is reset.
- * 
+ *
  * This scheduler is not preemptive!
  * This scheduler has no concept of priority!
  * This scheduler will "kill" a misbehaving task!
@@ -35,6 +35,12 @@
 
 typedef void (*func_ptr)();
 
+typedef struct
+{
+  func_ptr      entryPoint;
+  unsigned long taskInterval;
+} TaskDataType;
+
 class PrimitiveScheduler
 {
 public:
@@ -51,7 +57,7 @@ public:
 
   void resetTask(char i, int additional_time);
   void run();
-  
+
 private:
 
   unsigned long current_time;
@@ -60,10 +66,10 @@ private:
   unsigned long* taskExecutionTime;
   unsigned long* taskLastExecution;
   unsigned long* taskSkipped;
-  
+
   unsigned char task_count;
   func_ptr* tasks;
-  
+
   unsigned char emptyPosition;
 
 };
